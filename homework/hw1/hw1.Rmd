@@ -36,27 +36,100 @@ a) Store the data below in a data frame object named `my_df`.
 | Frank | Twitter |
 | Gisele | Twitter |
 | Harry | Instagram |
+```{r}
+Person <- c('Alice','Bob','Charlie','Denise','Erin','Frank','Gisele','Harry')
+Preference <- c('Twitter','Facebook','Twitter','Instagram','Facebook','Twitter','Twitter','Instagram')
 
+
+my_df=data.frame(Person,Preference)
+my_df
+```
 b) What are the dimensions of `my_df`?
+The data frame has a dimension of 2x8
 
 c) Write R code that counts the total number of users.
+```{r}
+print(nrow(my_df))
+```
 
 d) Write R code that counts the total number of users who prefer Twitter.
-
+```{r}
+Twitter_person<-0
+for (i in my_df$Preference ){
+  if (i=="Twitter"){
+    Twitter_person=Twitter_person+1
+  }
+}
+Twitter_person
+```
 e) Write R code that returns what Gisele prefers.
+```{r}
+find_interest <- function(person_name) {
+  location <- 0
+  
+  for (name in my_df$Person) {
+    location <- location + 1
+    
+    if (name == person_name) {
+      return(my_df[location, "Preference"])
+    }
+    
+    if (location > nrow(my_df)) {
+      return('not found')
+    }
+  }
+}
+print(find_interest('Gisele'))
+```
 
 ## Task 2
 a) Create a vector named `my_vec` that includes all integers from 1 to 10 (inclusive).
+```{r}
+my_vec <- c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
+```
 
 b) Replace the second element in `my_vec` with the number `99`.
-
+```{r}
+my_vec[2]<-(99)
+```
 c) Write a function called `my_func` that prints `This element is greater than 5!` if an element in `myvec` is greater than 5, and `This element is NOT greater than 5!` otherwise.
+```{r}
+my_func <- function(vec) {
+  for (element in vec) {
+    if (element > 5) {
+      print("This element is greater than 5!")
+  }
+    else {
+      print("This element is NOT greater than 5!")
+    }
+  }
+}
+my_func(my_vec)
+```
 
 ## Task 3
-a. Write a function named `get_fibonacci` that returns the n'th value in the [fibonacci sequence](https://www.cuemath.com/numbers/fibonacci-sequence). For example, `get_fibonacci(5)` should return 5; `get_fibonacci(7)` should return 13 and so on. ***Hint:** It is possible to call the same function from inside it. E.g., you can call `get_fibonacci()` from inside `get_fibonacci()`. Like the movie inception!*
-
+a. Write a function named `get_fibonacci` that returns the n'th value in the [fibonacci sequence]( ). For example, `get_fibonacci(5)` should return 5; `get_fibonacci(7)` should return 13 and so on. ***Hint:** It is possible to call the same function from inside it. E.g., you can call `get_fibonacci()` from inside `get_fibonacci()`. Like the movie inception!*
+```{r}
+get_fibonacci <- function(n) {
+  if (n <= 0) {
+    stop("Input must be a positive integer.")
+  }
+  
+  if (n == 1) {
+    return(0)
+  } 
+  else if (n == 2) {
+    return(1)
+  } 
+  else {
+    return(get_fibonacci(n - 1) + get_fibonacci(n - 2))
+  }
+}
+```
 b. Let's see R's computational power. Using your function in part (a), find and return the 19th value in the fibonacci sequence.
-
+```{r}
+get_fibonacci(19)
+```
 
 <br>
 You are done! 🏁 Don't forget to `commit` and `push` your .Rmd file to your Github clone repository before the due date.
